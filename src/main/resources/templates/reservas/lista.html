@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Reservas de Laboratorios</title></head>
+<body>
+  <h1>Reservas de Laboratorios</h1>
+
+  <p th:if="${mensaje}" th:text="${mensaje}"></p>
+  <p th:if="${error}" th:text="${error}" style="color:red"></p>
+
+  <a href="/reservas/nueva">Nueva reserva</a>
+
+  <table border="1">
+    <thead>
+      <tr><th>Laboratorio</th><th>Solicitante</th><th>Inicio</th><th>Fin</th><th>Estado</th><th></th></tr>
+    </thead>
+    <tbody>
+      <tr th:each="r : ${reservas}">
+        <td th:text="${r.laboratorio.nombre}"></td>
+        <td th:text="${r.nombreSolicitante}"></td>
+        <td th:text="${r.inicio}"></td>
+        <td th:text="${r.fin}"></td>
+        <td th:text="${r.estado}"></td>
+        <td>
+          <form th:action="@{/reservas/{id}/cancelar(id=${r.id})}" method="post">
+            <button type="submit">Cancelar</button>
+          </form>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>
